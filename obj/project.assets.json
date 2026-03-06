@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\flori\\OneDrive\\Desktop\\csharp\\CRC_CSD-02-b\\Hanoi\\Hanoi.csproj",
+      "projectUniqueName": "C:\\Users\\flori\\OneDrive\\Desktop\\Hanoi\\Hanoi.csproj",
       "projectName": "Hanoi",
-      "projectPath": "C:\\Users\\flori\\OneDrive\\Desktop\\csharp\\CRC_CSD-02-b\\Hanoi\\Hanoi.csproj",
+      "projectPath": "C:\\Users\\flori\\OneDrive\\Desktop\\Hanoi\\Hanoi.csproj",
       "packagesPath": "C:\\Users\\flori\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\flori\\OneDrive\\Desktop\\csharp\\CRC_CSD-02-b\\Hanoi\\obj\\",
+      "outputPath": "C:\\Users\\flori\\OneDrive\\Desktop\\Hanoi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\flori\\AppData\\Roaming\\NuGet\\NuGet.Config"
