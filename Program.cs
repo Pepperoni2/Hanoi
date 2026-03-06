@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace Hanoi
 {
@@ -152,6 +153,7 @@ namespace Hanoi
         // --- ASCII ART METHODS ---
         static void DrawBoard()
         {
+            Console.Clear();
             // The width of the largest disk dictates the column width
             int colWidth = totalDisks * 2 + 3; 
 
@@ -179,6 +181,8 @@ namespace Hanoi
             string rLabel = PadCenter("(R)", colWidth);
             Console.WriteLine(lLabel + "   " + mLabel + "   " + rLabel);
             Console.WriteLine(new string('-', (colWidth * 3) + 6)); // Divider line
+
+            Thread.Sleep(500);
         }
 
         static string GetDiskString(int[] disks, int row, int colWidth)
