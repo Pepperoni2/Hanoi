@@ -1,0 +1,6 @@
+C:\Users\flori\Desktop\Hanoi\obj\Debug\net47\Hanoi.csproj.AssemblyReference.cache
+C:\Users\flori\Desktop\Hanoi\obj\Debug\net47\Hanoi.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\flori\Desktop\Hanoi\obj\Debug\net47\Hanoi.AssemblyInfoInputs.cache
+C:\Users\flori\Desktop\Hanoi\obj\Debug\net47\Hanoi.AssemblyInfo.cs
+C:\Users\flori\Desktop\Hanoi\obj\Debug\net47\Hanoi.csproj.CoreCompileInputs.cache
+C:\Users\flori\Desktop\Hanoi\obj\Debug\net47\Hanoi.sourcelink.json

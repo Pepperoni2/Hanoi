@@ -11,11 +11,11 @@
 This report outlines the implementation of a C# Console Application developed for CRC-CD UE. The primary objective of this application is to implement the Tower of Hanoi Game via Recursive and Iterative method.
 
 ## 2. System Architecture
-The application is built using the .NET 10. It follows a structured approach to ensure separation of concerns between data handling and user interaction.
+The application is built using the .NET 10.
 
 
 
-[Image of a software class diagram]
+![Image of program class and class peg containing a Stack of type int called DiskSizes and a char name field](images/classDiagram.png)[Software class diagram]
 
 
 ### 2.1 Component Overview

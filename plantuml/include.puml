@@ -1,0 +1,12 @@
+@startuml Hanoi
+!include .\\Program.puml
+!include .\\obj\Debug\net10.0\.NETCoreApp,Version=v10.0.AssemblyAttributes.puml
+!include .\\obj\Debug\net10.0\Hanoi.AssemblyInfo.puml
+!include .\\obj\Debug\net10.0\Hanoi.GlobalUsings.g.puml
+!include .\\obj\Debug\net47\.NETFramework,Version=v4.7.AssemblyAttributes.puml
+!include .\\obj\Debug\net47\Hanoi.AssemblyInfo.puml
+!include .\\obj\Debug\net47\Hanoi.GlobalUsings.g.puml
+!include .\\obj\Debug\net8.0\.NETCoreApp,Version=v8.0.AssemblyAttributes.puml
+!include .\\obj\Debug\net8.0\Hanoi.AssemblyInfo.puml
+!include .\\obj\Debug\net8.0\Hanoi.GlobalUsings.g.puml
+@enduml

@@ -1,0 +1,9 @@
+@startuml Hanoi
+class Program {
+}
+
+class Peg {
+  + Name : char <<get>> <<set>>
+  + DiskSizes : Stack<int>
+}
+@enduml
