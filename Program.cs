@@ -6,7 +6,7 @@ namespace Hanoi
 {
     class Program
     {
-        // Global pegs so both algorithms can update and draw the same state
+        // Global pegs so both methods can use the pegs
         static Peg pegL = new('L');
         static Peg pegM = new('M');
         static Peg pegR = new('R');
@@ -56,13 +56,13 @@ namespace Hanoi
             pegM.DiskSizes.Clear();
             pegR.DiskSizes.Clear();
 
-            // Initialize the source peg with disks (largest at the bottom, smallest at the top)
+            // Initialize the source peg with disks
             for (int i = n; i > 0; i--)
             {
                 pegL.DiskSizes.Push(i);
             }
             
-            // Draw the initial starting state
+            // Initial starting state
             DrawBoard();
         }
 
@@ -71,16 +71,16 @@ namespace Hanoi
             if (n == 0)
                 return;
 
-            // Move all disks smaller than this one over to the spare.
+            // Move all disks smaller than this current to the spare.
             Recursive(n - 1, source, spare, dest);
 
-            // Move the remaining disk to the destination peg
+            // Move disk to the destination peg
             int disk = source.DiskSizes.Pop();
             dest.DiskSizes.Push(disk);
             PrintDiskMovement(disk, source.Name, dest.Name);
-            DrawBoard(); // Draw the board after the move
+            DrawBoard();
 
-            // Move the disk we just moved to the spare back over to the dest peg.
+            // Move disk from the spare back to the dest peg.
             Recursive(n - 1, spare, dest, source);
         }
 
@@ -107,14 +107,14 @@ namespace Hanoi
 
         static void MoveBetweenPegs(Peg peg1, Peg peg2)
         {
-            // If peg 1 is empty, peg 2's top disk must move to peg 1
+            // If peg 1 is empty, peg 2 top disk must move to peg 1
             if (peg1.DiskSizes.Count == 0)
             {
                 int disk = peg2.DiskSizes.Pop();
                 peg1.DiskSizes.Push(disk);
                 PrintDiskMovement(disk, peg2.Name, peg1.Name);
             }
-            // If peg 2 is empty, peg 1's top disk must move to peg 2
+            // If peg 2 is empty, peg 1 top disk must move to peg 2
             else if (peg2.DiskSizes.Count == 0)
             {
                 int disk = peg1.DiskSizes.Pop();
@@ -141,7 +141,6 @@ namespace Hanoi
                 }
             }
             
-            // Draw the board after any iterative move completes
             DrawBoard();
         }
 
@@ -157,7 +156,8 @@ namespace Hanoi
             // The width of the largest disk dictates the column width
             int colWidth = totalDisks * 2 + 3; 
 
-            // Convert stacks to arrays (top to bottom) and reverse them so index 0 is the bottom disk
+            // Convert stacks to arrays (top to bottom)
+            // Reverse array so bottom disk is index 0
             int[] lDisks = pegL.DiskSizes.ToArray(); Array.Reverse(lDisks);
             int[] mDisks = pegM.DiskSizes.ToArray(); Array.Reverse(mDisks);
             int[] rDisks = pegR.DiskSizes.ToArray(); Array.Reverse(rDisks);
@@ -171,7 +171,6 @@ namespace Hanoi
                 string mStr = GetDiskString(mDisks, row, colWidth);
                 string rStr = GetDiskString(rDisks, row, colWidth);
                 
-                // Print the row with a gap between pegs
                 Console.WriteLine(lStr + "   " + mStr + "   " + rStr);
             }
 
