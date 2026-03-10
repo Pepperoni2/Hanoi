@@ -113,7 +113,6 @@ This is an example of how to list things you need to use the software and how to
 
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
-_For more examples, please refer to the [Documentation](https://example.com)_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -153,7 +152,7 @@ Distributed under the project_license. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Florian Golubic - [@twitter_handle](https://twitter.com/twitter_handle) - cc241008@ustp-students.at
+Florian Golubic - cc241008@ustp-students.at
 
 Project Link: [https://github.com/Pepperoni2/Hanoi](https://github.com/Pepperoni2/Hanoi)
 

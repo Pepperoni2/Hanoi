@@ -3,15 +3,15 @@
 **Course:** CRC-CD  
 **Student Name:** Florian Golubic 
 **Student ID:** cc241008 
-**Date:** March 9, 2026
+**Date:** March 10, 2026
 
 ---
 
 ## 1. Introduction
-This report outlines the implementation of a C# Console Application developed for [Assignment Name]. The primary objective of this application is to [briefly state the goal, e.g., manage a library inventory or calculate statistical data].
+This report outlines the implementation of a C# Console Application developed for CRC-CD UE. The primary objective of this application is to implement the Tower of Hanoi Game via Recursive and Iterative method.
 
 ## 2. System Architecture
-The application is built using the .NET framework. It follows a structured approach to ensure separation of concerns between data handling and user interaction.
+The application is built using the .NET 10. It follows a structured approach to ensure separation of concerns between data handling and user interaction.
 
 
 
