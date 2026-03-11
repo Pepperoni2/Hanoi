@@ -10,7 +10,7 @@ namespace Hanoi
         static Peg pegL = new('L');
         static Peg pegM = new('M');
         static Peg pegR = new('R');
-        static int totalDisks;
+        static int totalDisks = 3;
 
         static void Main(string[] args)
         {
