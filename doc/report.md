@@ -35,7 +35,7 @@ static void Recursive(int n, Peg source, Peg dest, Peg spare)
 ### 3.2 Iterative method
 ### 3.2 Iterative algorithm
 The following code snippet demonstrates the core logic for Recursive:
-- Paramters :
+- Parameters :
   - n - int - total number of disks which is set by the user via command line (default = 3)
   - source - Peg - starting point from where the disks originate, is set in main
   - dest - Peg - the destination to which the disks will be moving (from source peg to dest peg)
@@ -67,8 +67,87 @@ static void Iterative(int n, Peg source, Peg dest, Peg spare)
 ```
 
 ## Additional Features
-(explain your extra implementations that are not stated in the requirements, if any)
+#### 3.2.1 MoveBetweenPegs function
+The following code snippets demonstrates the core logic of the function MoveBetweenPegs.
+- Parameters:
+  - peg1 - Peg - must contain one of the Peg you want to check if disk movement is possible
+  - peg2 - Peg - other Peg to check if disk movement is possible 
+```csharp
+static void MoveBetweenPegs(Peg peg1, Peg peg2)
+{
+    // If peg 1 is empty, peg 2 top disk must move to peg 1
+    if (peg1.DiskSizes.Count == 0)
+    {
+        int disk = peg2.DiskSizes.Pop();
+        peg1.DiskSizes.Push(disk);
+        PrintDiskMovement(disk, peg2.Name, peg1.Name);
+    }
+    // If peg 2 is empty, move peg 1 top disk to peg 2
+    else if (peg2.DiskSizes.Count == 0)
+    {
+        int disk = peg1.DiskSizes.Pop();
+        peg2.DiskSizes.Push(disk);
+        PrintDiskMovement(disk, peg1.Name, peg2.Name);
+    }
+    // If both have disks, compare the top disks
+    else
+    {
+        int topDisk1 = peg1.DiskSizes.Peek();
+        int topDisk2 = peg2.DiskSizes.Peek();
 
+        if (topDisk1 < topDisk2)
+        {
+            peg1.DiskSizes.Pop();
+            peg2.DiskSizes.Push(topDisk1);
+            PrintDiskMovement(topDisk1, peg1.Name, peg2.Name);
+        }
+        else
+        {
+            peg2.DiskSizes.Pop();
+            peg1.DiskSizes.Push(topDisk2);
+            PrintDiskMovement(topDisk2, peg2.Name, peg1.Name);
+        }
+    }
+            
+    DrawBoard();
+}
+```
+
+### 3.2.2 Peg class
+Primary constrcutor with the parameter of char name
+- Fields:
+  - Name - char - saves the name of the Peg ('L', 'M' or 'R')
+  - DiskSizes - Stack of type int - contains all disk currently on the peg
+```csharp
+public class Peg(char name)
+{
+    public char Name { get; set; } = name;
+    public Stack<int> DiskSizes { get; } = new Stack<int>();
+}
+```
+
+### 2.3 InitializePegs function
+This function is used to initialize the pegs and fill the source (left) peg with n disks.
+During initialization Stack DiskSizes of pegL will be filled with the disks.
+Call DrawBoard function for drawing the starting position as ASCII-Art in the terminal.
+```csharp
+static void InitializePegs(int n)
+{
+    totalDisks = n;
+    pegL.DiskSizes.Clear();
+    pegM.DiskSizes.Clear();
+    pegR.DiskSizes.Clear();
+
+    // Initialize the source peg with disks
+    for (int i = n; i > 0; i--)
+    {
+        pegL.DiskSizes.Push(i);
+    }
+    
+    // Initial starting state
+    DrawBoard();
+}
+```
 ## Discussion/Conclusion
 (the challenges you faced and how you solved it)
 
