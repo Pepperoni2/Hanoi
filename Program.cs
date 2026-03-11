@@ -7,9 +7,9 @@ namespace Hanoi
     class Program
     {
         // Global pegs so both methods can use the pegs
-        static Peg pegL = new('L');
-        static Peg pegM = new('M');
-        static Peg pegR = new('R');
+        static Peg pegL = new("(L)");
+        static Peg pegM = new("(M)");
+        static Peg pegR = new("(R)");
         static int totalDisks = 3;
 
         static void Main(string[] args)
@@ -77,7 +77,7 @@ namespace Hanoi
             // Move disk to the destination peg
             int disk = source.DiskSizes.Pop();
             dest.DiskSizes.Push(disk);
-            PrintDiskMovement(disk, source.Name, dest.Name);
+            //PrintDiskMovement(disk, source.Name, dest.Name);
             DrawBoard();
 
             // Move disk from the spare back to the dest peg.
@@ -86,7 +86,7 @@ namespace Hanoi
 
         static void Iterative(int n, Peg source, Peg dest, Peg spare)
         {
-            // If the total number of disks is even, we swap destination and spare
+            // If the total number of disks is even, swap destination and spare
             if (n % 2 == 0)
             {
                 (spare, dest) = (dest, spare);
@@ -112,14 +112,14 @@ namespace Hanoi
             {
                 int disk = peg2.DiskSizes.Pop();
                 peg1.DiskSizes.Push(disk);
-                PrintDiskMovement(disk, peg2.Name, peg1.Name);
+                //PrintDiskMovement(disk, peg2.Name, peg1.Name);
             }
             // If peg 2 is empty, peg 1 top disk must move to peg 2
             else if (peg2.DiskSizes.Count == 0)
             {
                 int disk = peg1.DiskSizes.Pop();
                 peg2.DiskSizes.Push(disk);
-                PrintDiskMovement(disk, peg1.Name, peg2.Name);
+                //PrintDiskMovement(disk, peg1.Name, peg2.Name);
             }
             // If both have disks, compare the top disks
             else
@@ -131,22 +131,22 @@ namespace Hanoi
                 {
                     peg1.DiskSizes.Pop();
                     peg2.DiskSizes.Push(topDisk1);
-                    PrintDiskMovement(topDisk1, peg1.Name, peg2.Name);
+                    //PrintDiskMovement(topDisk1, peg1.Name, peg2.Name);
                 }
                 else
                 {
                     peg2.DiskSizes.Pop();
                     peg1.DiskSizes.Push(topDisk2);
-                    PrintDiskMovement(topDisk2, peg2.Name, peg1.Name);
+                    //PrintDiskMovement(topDisk2, peg2.Name, peg1.Name);
                 }
             }
             
             DrawBoard();
         }
 
-        static void PrintDiskMovement(int n, char source, char dest)
+        static void PrintDiskMovement(int n, string source, string dest)
         {
-            Console.WriteLine($"\nDisk {n} moved from ({source}) to ({dest})");
+            Console.WriteLine($"\nDisk {n} moved from {source} to {dest}");
         }
 
         // --- ASCII ART METHODS ---
@@ -175,9 +175,9 @@ namespace Hanoi
             }
 
             // Draw labels centered under each peg
-            string lLabel = PadCenter("(L)", colWidth);
-            string mLabel = PadCenter("(M)", colWidth);
-            string rLabel = PadCenter("(R)", colWidth);
+            string lLabel = PadCenter(pegL.Name, colWidth);
+            string mLabel = PadCenter(pegM.Name, colWidth);
+            string rLabel = PadCenter(pegR.Name, colWidth);
             Console.WriteLine(lLabel + "   " + mLabel + "   " + rLabel);
             Console.WriteLine(new string('-', (colWidth * 3) + 6)); // Divider line
 
@@ -209,9 +209,9 @@ namespace Hanoi
         }
     }
 
-    public class Peg(char name)
+    public class Peg(string name)
     {
-        public char Name { get; set; } = name;
+        public string Name { get; set; } = name;
         public Stack<int> DiskSizes { get; } = new Stack<int>();
     }
 }
