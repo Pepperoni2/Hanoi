@@ -33,7 +33,6 @@ static void Recursive(int n, Peg source, Peg dest, Peg spare)
 ```
 
 ### 3.2 Iterative method
-### 3.2 Iterative algorithm
 The following code snippet demonstrates the core logic for Recursive:
 - Parameters :
   - n - int - total number of disks which is set by the user via command line (default = 3)
@@ -126,7 +125,7 @@ public class Peg(char name)
 }
 ```
 
-### 2.3 InitializePegs function
+### 3.2.3 InitializePegs function
 This function is used to initialize the pegs and fill the source (left) peg with n disks.
 During initialization Stack DiskSizes of pegL will be filled with the disks.
 Call DrawBoard function for drawing the starting position as ASCII-Art in the terminal.
@@ -148,11 +147,72 @@ static void InitializePegs(int n)
     DrawBoard();
 }
 ```
+### 3.2.4 DrawBoard function
+This function is used to draw the Pegs and disks to be displayed in the terminal as ASCII-Art 
+DrawBoard is called at the Initialization stage and at every DiskMovement
+in either the Recursive or Iterative method
+Thread.Sleep(500) at the end of the function allowed for ASCII animation 
+```csharp
+static void DrawBoard()
+{
+    Console.Clear();
+    // The width of the largest disk dictates the column width
+    int colWidth = totalDisks * 2 + 3; 
+
+    // Convert stacks to arrays (top to bottom)
+    // Reverse array so bottom disk is index 0
+    int[] lDisks = pegL.DiskSizes.ToArray(); Array.Reverse(lDisks);
+    int[] mDisks = pegM.DiskSizes.ToArray(); Array.Reverse(mDisks);
+    int[] rDisks = pegR.DiskSizes.ToArray(); Array.Reverse(rDisks);
+
+    Console.WriteLine();
+    
+    // Draw row by row, from top to bottom
+    for (int row = totalDisks - 1; row >= 0; row--)
+    {
+        string lStr = GetDiskString(lDisks, row, colWidth);
+        string mStr = GetDiskString(mDisks, row, colWidth);
+        string rStr = GetDiskString(rDisks, row, colWidth);
+        
+        Console.WriteLine(lStr + "   " + mStr + "   " + rStr);
+    }
+
+    // Draw labels centered under each peg
+    string lLabel = PadCenter("(L)", colWidth);
+    string mLabel = PadCenter("(M)", colWidth);
+    string rLabel = PadCenter("(R)", colWidth);
+    Console.WriteLine(lLabel + "   " + mLabel + "   " + rLabel);
+    Console.WriteLine(new string('-', (colWidth * 3) + 6)); // Divider line
+
+    Thread.Sleep(500);
+}
+```
+#### 3.2.4.1 GetDiskString function
+This function draws the disk, which its size is dependend on the disk.length, or the empty Peg space.
+```csharp
+static string GetDiskString(int[] disks, int row, int colWidth)
+{
+    if (row < disks.Length)
+    {
+        int size = disks[row];
+        int plusCount = size * 2 + 1;
+        string disk = "<" + new string('+', plusCount) + ">";
+        return PadCenter(disk, colWidth);
+    }
+    else
+    {
+        // Empty peg space
+        return PadCenter("|", colWidth);
+    }
+}
+```
+#### 3.2.4.2 PadCenter function
+
 ## Discussion/Conclusion
 (the challenges you faced and how you solved it)
 
 ## Work with: 
-(List down the name of your colleagues if you work with them)
+Flo Madner
 
 ## Reference: 
 [(Tower of Hanoi - Wikipedia)](https://en.wikipedia.org/wiki/Tower_of_Hanoi)
