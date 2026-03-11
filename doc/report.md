@@ -1,20 +1,28 @@
 
 # Report
 
-Course: C# Development SS20?? (4 ECTS, 3 SWS)
+Course: **C# Development SS20?? (4 ECTS, 3 SWS)**
 
-Student ID: CC241008
+Student ID: **CC241008**
 
-BCC Group: B
+BCC Group: **B**
 
-Name: Florian Golubic
+Name: **Florian Golubic**
 
 ## Methodology: 
-### 3.1 Recursive method
-The following code snippet demonstrates the core logic for Recursive:
+### Recursive implementation
+The following code snippet demonstrates the core logic for the **Recursive** method:
+
+1. **Move $m - 1$ disks** from the source to the spare peg using the same general solving procedure. Rules are not violated, by assumption. This leaves disk $m$ as the top disk on the source peg.
+2. **Move disk $m$** from the source to the target peg. This is guaranteed to be a valid move by the assumptions—a simple step.
+3. **Move the $m - 1$ disks** previously placed on the spare peg to the target peg using the same procedure. They are placed on top of disk $m$ without violating the rules.
+4. **Base Case:** Move 0 disks (in steps 1 and 3), which means doing nothing—this does not violate the rules.
+
+---
 ```csharp
 static void Recursive(int n, Peg source, Peg dest, Peg spare)
 {
+    // Base case
     if (n == 0)
         return;
 
@@ -24,7 +32,7 @@ static void Recursive(int n, Peg source, Peg dest, Peg spare)
     // Move disk to the destination peg
     int disk = source.DiskSizes.Pop();
     dest.DiskSizes.Push(disk);
-    PrintDiskMovement(disk, source.Name, dest.Name);
+    //PrintDiskMovement(disk, source.Name, dest.Name);
     DrawBoard(); // Draw the board after the move
 
     // Move disk from the spare back to the dest peg.
@@ -32,13 +40,24 @@ static void Recursive(int n, Peg source, Peg dest, Peg spare)
 }
 ```
 
-### 3.2 Iterative method
-The following code snippet demonstrates the core logic for Recursive:
-- Parameters :
-  - n - int - total number of disks which is set by the user via command line (default = 3)
-  - source - Peg - starting point from where the disks originate, is set in main
-  - dest - Peg - the destination to which the disks will be moving (from source peg to dest peg)
-  - spare - Peg - represents the peg not involved in diskMovement
+### Iterative implementation
+#### Parameters
+* **n (int):** Total number of disks set by the user via the command line (default = 3).
+* **source (Peg):** The starting point from which the disks originate; initialized in `Main`.
+* **dest (Peg):** The destination to which the disks will be moving.
+* **spare (Peg):** Represents the peg not involved in the current disk movement.
+
+---
+
+#### Iterative Logic
+> "For step 1, whenever we're moving the top disk, we always move it to the next position in the same direction. This is to the right if the starting number of pieces is **even**, or to the left if the starting number of pieces is **odd**.
+>
+> * **Even number of pieces:** Steps 1, 3, 5, 7... will place the top disk $A \rightarrow B \rightarrow C \rightarrow A \dots$
+> * **Odd number of pieces:** Steps 1, 3, 5, 7... will place the top disk $A \rightarrow C \rightarrow B \rightarrow A \dots$
+>
+> For step 2, whenever we move another piece, there is always only one legal move, since no piece may be moved onto the smallest, and of any combination of other pieces, only one will fit the other." — *Wikipedia*
+
+---
 ```csharp
 static void Iterative(int n, Peg source, Peg dest, Peg spare)
 {
@@ -54,7 +73,6 @@ static void Iterative(int n, Peg source, Peg dest, Peg spare)
 
     for (int i = 1; i <= totalMoves; i++)
     {
-        
         if (i % 3 == 1) // odd numbered moves 
             MoveBetweenPegs(source, dest);
         else if (i % 3 == 2)
@@ -66,11 +84,19 @@ static void Iterative(int n, Peg source, Peg dest, Peg spare)
 ```
 
 ## Additional Features
-#### 3.2.1 MoveBetweenPegs function
-The following code snippets demonstrates the core logic of the function MoveBetweenPegs.
-- Parameters:
-  - peg1 - Peg - must contain one of the Peg you want to check if disk movement is possible
-  - peg2 - Peg - other Peg to check if disk movement is possible 
+### MoveBetweenPegs function
+The following code snippets demonstrate the core logic of the `MoveBetweenPegs` function.
+
+**Parameters:**
+* `peg1` (Peg): The first peg to check for valid disk movement.
+* `peg2` (Peg): The second peg to check for valid disk movement.
+
+**Logic:**
+1. Check if either peg is empty to move the top disk from the occupied peg to the empty one.
+2. If both pegs have disks, inspect the top disk of each stack via `Peek()` and compare them.
+3. Depending on which disk is smaller, it will be placed on the peg with the larger disk.
+
+---
 ```csharp
 static void MoveBetweenPegs(Peg peg1, Peg peg2)
 {
@@ -79,14 +105,14 @@ static void MoveBetweenPegs(Peg peg1, Peg peg2)
     {
         int disk = peg2.DiskSizes.Pop();
         peg1.DiskSizes.Push(disk);
-        PrintDiskMovement(disk, peg2.Name, peg1.Name);
+        //PrintDiskMovement(disk, peg2.Name, peg1.Name);
     }
     // If peg 2 is empty, move peg 1 top disk to peg 2
     else if (peg2.DiskSizes.Count == 0)
     {
         int disk = peg1.DiskSizes.Pop();
         peg2.DiskSizes.Push(disk);
-        PrintDiskMovement(disk, peg1.Name, peg2.Name);
+        //PrintDiskMovement(disk, peg1.Name, peg2.Name);
     }
     // If both have disks, compare the top disks
     else
@@ -98,13 +124,13 @@ static void MoveBetweenPegs(Peg peg1, Peg peg2)
         {
             peg1.DiskSizes.Pop();
             peg2.DiskSizes.Push(topDisk1);
-            PrintDiskMovement(topDisk1, peg1.Name, peg2.Name);
+            //PrintDiskMovement(topDisk1, peg1.Name, peg2.Name);
         }
         else
         {
             peg2.DiskSizes.Pop();
             peg1.DiskSizes.Push(topDisk2);
-            PrintDiskMovement(topDisk2, peg2.Name, peg1.Name);
+            //PrintDiskMovement(topDisk2, peg2.Name, peg1.Name);
         }
     }
             
@@ -112,23 +138,24 @@ static void MoveBetweenPegs(Peg peg1, Peg peg2)
 }
 ```
 
-### 3.2.2 Peg class
-Primary constrcutor with the parameter of char name
-- Fields:
-  - Name - char - saves the name of the Peg ('L', 'M' or 'R')
-  - DiskSizes - Stack of type int - contains all disk currently on the peg
+### Class Structure: Peg
+**Primary Constructor:** Takes a `string name` as a parameter.
+
+**Fields:**
+* `Name` (string): Saves the name of the peg (e.g., "(L)", "(M)", or "(R)").
+* `DiskSizes` (Stack<int>): Contains all disks currently on the peg.
+
+---
 ```csharp
-public class Peg(char name)
+public class Peg(string name)
 {
-    public char Name { get; set; } = name;
+    public string Name { get; set; } = name;
     public Stack<int> DiskSizes { get; } = new Stack<int>();
 }
 ```
 
-### 3.2.3 InitializePegs function
-This function is used to initialize the pegs and fill the source (left) peg with n disks.
-During initialization Stack DiskSizes of pegL will be filled with the disks.
-Call DrawBoard function for drawing the starting position as ASCII-Art in the terminal.
+### InitializePegs function
+This function is used to initialize the pegs and fill the source (left) peg with $n$ disks. During initialization, the `DiskSizes` stack of `pegL` is populated. The `DrawBoard` function is called to render the starting position as ASCII art in the terminal.
 ```csharp
 static void InitializePegs(int n)
 {
@@ -147,11 +174,8 @@ static void InitializePegs(int n)
     DrawBoard();
 }
 ```
-### 3.2.4 DrawBoard function
-This function is used to draw the Pegs and disks to be displayed in the terminal as ASCII-Art 
-DrawBoard is called at the Initialization stage and at every DiskMovement
-in either the Recursive or Iterative method
-Thread.Sleep(500) at the end of the function allowed for ASCII animation 
+### DrawBoard function
+Used to draw the pegs and disks as ASCII art. `DrawBoard` is called at the initialization stage and after every disk movement in either the Recursive or Iterative method. A `Thread.Sleep(500)` call at the end of the function allows for ASCII animation effect.
 ```csharp
 static void DrawBoard()
 {
@@ -178,17 +202,17 @@ static void DrawBoard()
     }
 
     // Draw labels centered under each peg
-    string lLabel = PadCenter("(L)", colWidth);
-    string mLabel = PadCenter("(M)", colWidth);
-    string rLabel = PadCenter("(R)", colWidth);
+    string lLabel = PadCenter(pegL.Name, colWidth);
+    string mLabel = PadCenter(pegM.Name, colWidth);
+    string rLabel = PadCenter(pegR.Name, colWidth);
     Console.WriteLine(lLabel + "   " + mLabel + "   " + rLabel);
     Console.WriteLine(new string('-', (colWidth * 3) + 6)); // Divider line
 
     Thread.Sleep(500);
 }
 ```
-#### 3.2.4.1 GetDiskString function
-This function draws the disk, which its size is dependend on the disk.length, or the empty Peg space.
+### GetDiskString function
+This function draws a disk, the size of which is **dependent** on the disk length, or represents an empty peg space.
 ```csharp
 static string GetDiskString(int[] disks, int row, int colWidth)
 {
@@ -206,15 +230,32 @@ static string GetDiskString(int[] disks, int row, int colWidth)
     }
 }
 ```
-#### 3.2.4.2 PadCenter function
-
+### PadCenter function
+A utility function that centers text within a given width.
+```csharp
+static string PadCenter(string text, int width)
+{
+    int padTotal = width - text.Length;
+    int padLeft = padTotal / 2;
+    int padRight = padTotal - padLeft;
+    return new string(' ', padLeft) + text + new string(' ', padRight);
+}
+```
 ## Discussion/Conclusion
-(the challenges you faced and how you solved it)
+The Recursive method was fairly easy to implement due to the Wikipedia entry on the recursive solution, which goes into great depth.
+
+The Iterative implementation was a bit more complicated. At first, I created some nested for loops, which quickly led to a dead end. Then, I switched from Arrays to Stacks; this proved to be very convenient for comparing the topDisks of two pegs, thanks to methods like Peek, Push, and Pop.
+
+The main hurdle I faced was the calculation of totalMoves and the disk movement order. While the Wikipedia entry touched on the iterative methodology, it wasn’t as in-depth as the recursive section. I also decided to create a simple Peg class with a primary constructor to keep the code compact.
+
+For the ASCII drawings and animations, I used the "Snake Game" animation and some AI assistance to ensure the spacing and disks were properly rendered in the terminal. I wish I had understood the iterative approach a bit sooner, but in the end, I am very happy with the result.
 
 ## Work with: 
 Flo Madner
 
 ## Reference: 
-[(Tower of Hanoi - Wikipedia)](https://en.wikipedia.org/wiki/Tower_of_Hanoi)
-[(Example)](https://www.mathsisfun.com/games/towerofhanoi.html)
-
+[Tower of Hanoi - Wikipedia](https://en.wikipedia.org/wiki/Tower_of_Hanoi)
+[Example](https://www.mathsisfun.com/games/towerofhanoi.html)
+[Stack Class](https://learn.microsoft.com/en-us/dotnet/api/system.collections.stack?view=net-10.0 )
+[Tower of Hanoi - Iterative](https://stackoverflow.com/questions/77292542/c-sharp-hanoi-tower-iterative-version)
+[Snake Game Animation](https://yun-vis.net/ustp-bcc-csharp/pages/snake)
