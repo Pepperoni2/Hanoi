@@ -1,7 +1,7 @@
 
 # Report
 
-Course: **C# Development SS20?? (4 ECTS, 3 SWS)**
+Course: **C# Development SS2026 (4 ECTS, 3 SWS)**
 
 Student ID: **CC241008**
 
@@ -255,7 +255,11 @@ Flo Madner
 
 ## Reference: 
 [Tower of Hanoi - Wikipedia](https://en.wikipedia.org/wiki/Tower_of_Hanoi)
+
 [Example](https://www.mathsisfun.com/games/towerofhanoi.html)
-[Stack Class](https://learn.microsoft.com/en-us/dotnet/api/system.collections.stack?view=net-10.0 )
+
+[Stack Class](https://learn.microsoft.com/en-us/dotnet/api/system.collections.stack?view=net-10.0)
+
 [Tower of Hanoi - Iterative](https://stackoverflow.com/questions/77292542/c-sharp-hanoi-tower-iterative-version)
+
 [Snake Game Animation](https://yun-vis.net/ustp-bcc-csharp/pages/snake)
